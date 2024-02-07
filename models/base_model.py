@@ -6,7 +6,7 @@ import datetime
 
 class BaseModel:
     """this basemodel class for airbnb"""
-    def __init__(self):
+    def __init__(self, *args,**kwargs):
         """define attributes
         Attributes:
         id (str) : the unique number for user
@@ -14,9 +14,21 @@ class BaseModel:
         update_at (str) : the time update at
         """
         self.id = str(uuid.uuid4())
-        self.create_at = datetime.datetime.now()
-        self.update_at = datetime.datetime.now()
-
+        self.created_at = datetime.datetime.now()
+        self.updated_at = datetime.datetime.now()
+        
+        tformat = "%Y-%m-%dT%H:%M:%S.%f"
+        if len(kwargs) != 0:
+            for k, v in kwargs.items():
+                if k == "created_at" or k == "updated_at":
+                    self.__dict__[k] = datetime.datetime.strptime(v,tformat)
+                else:
+                    self.__dict__[k] = v
+        else:
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.datetime.now()
+            self.updated_at = datetime.datetime.now()
+        
     def __str__(self):
         """ print the representation of BaseModule
         Returns:
@@ -26,7 +38,7 @@ class BaseModel:
 
     def save(self):
         """update the update attribute time"""
-        self.update_at = datetime.datetime.now()
+        self.updated_at = datetime.datetime.now()
 
     def to_dict(self):
         """represent all instances as dictionary
@@ -36,6 +48,6 @@ class BaseModel:
         """
         class_dict = self.__dict__.copy()
         class_dict["__class__"] = self.__class__.__name__
-        class_dict["create_at"] = self.create_at.isoformat()
-        class_dict["update_at"] = self.update_at.isoformat()
+        class_dict["created_at"] = self.created_at.isoformat()
+        class_dict["updated_at"] = self.updated_at.isoformat()
         return class_dict
