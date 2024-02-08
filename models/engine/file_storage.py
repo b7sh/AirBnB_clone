@@ -10,8 +10,7 @@ class FileStorage:
     
     def new(self, obj):
         self.__objects[
-            f"{obj.__class__.__name__}.{obj.id}"
-            ] = obj
+            f"{obj.__class__.__name__}.{obj.id}"] = obj
 
     def save(self):
         try:
