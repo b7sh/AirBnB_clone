@@ -2,6 +2,7 @@
 """define the BaseModule class"""
 import uuid
 import datetime
+import models
 
 
 class BaseModel:
@@ -25,10 +26,8 @@ class BaseModel:
                 else:
                     self.__dict__[k] = v
         else:
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.datetime.now()
-            self.updated_at = datetime.datetime.now()
-        
+            models.storage.new(self)
+
     def __str__(self):
         """ print the representation of BaseModule
         Returns:
@@ -39,6 +38,7 @@ class BaseModel:
     def save(self):
         """update the update attribute time"""
         self.updated_at = datetime.datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """represent all instances as dictionary
