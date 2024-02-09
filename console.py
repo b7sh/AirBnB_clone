@@ -1,12 +1,13 @@
 #!/usr/bin/python3
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 
 class HBNBCommand(cmd.Cmd):
     """the airbnb interrpreter"""
     prompt = "(hbnb) "
-
+    classes = {"BaseModel": BaseModel(), "User" : User()}
     def do_quit(self, args):
         """Quit command to exit the program"""
         return True
@@ -23,11 +24,11 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) <= 0:
             print("** class name missing **")
             return
-        elif arg[0] != "BaseModel":
+        elif arg[0] not in self.classes:
             print("** class doesn't exist **")
             return
         else:
-            Base = BaseModel()
+            Base = self.classes[arg[0]]
             storage.new(Base)
             Base.save()
             print(Base.id)
@@ -45,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             return False
 
-        elif arg[0] != "BaseModel":
+        elif arg[0] not in self.classes:
             print("** class doesn't exist **")
             return False
         storage.reload()
@@ -68,7 +69,7 @@ class HBNBCommand(cmd.Cmd):
             print("** instance id missing **")
             return False
 
-        elif arg[0] != "BaseModel":
+        elif arg[0] not in self.classes:
             print("** class doesn't exist **")
             return False
         storage.reload()
@@ -86,7 +87,7 @@ class HBNBCommand(cmd.Cmd):
         """
         arg = args.split()
         if len(arg) > 0:
-            if arg[0] != "BaseModel":
+            if arg[0] not in self.classes:
                 print("** class doesn't exist **")
                 return False
         storage.reload()
@@ -102,7 +103,7 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) <= 0:
             print("** class name missing **")
             return False
-        elif arg[0] != "BaseModel":
+        elif arg[0] not in self.classes:
             print("** class doesn't exist **")
             return False
         elif len(arg) < 2:
@@ -122,7 +123,6 @@ class HBNBCommand(cmd.Cmd):
             return False
         obj = obj_dict[key]
         setattr(obj, arg[2], arg[3])
-        storage.save()
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
