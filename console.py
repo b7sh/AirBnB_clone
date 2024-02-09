@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import cmd
 from models.base_model import BaseModel
-
+from models import storage
 
 class HBNBCommand(cmd.Cmd):
     """the airbnb interrpreter"""
@@ -27,9 +27,10 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         else:
-            base = BaseModel()
-            base.save()
-            print(base.id)
+            Base = BaseModel()
+            storage.new(Base)
+            Base.save()
+            print(Base.id)
 
     def do_show(self, args):
         """Prints the string
@@ -39,14 +40,21 @@ class HBNBCommand(cmd.Cmd):
         arg = args.split()
         if len(arg) <= 0:
             print("** class name missing **")
-            return
-        elif arg < 2:
+            return False
+        elif len(arg) < 2:
             print("** instance id missing **")
-            return
+            return False
 
         elif arg[0] != "BaseModel":
             print("** class doesn't exist **")
-            return
+            return False
+        storage.reload()
+        obj_dict = storage.all()
+        key = f"{arg[0]}.{arg[1]}"
+        if key not in obj_dict:
+            print("** no instance found **")
+            return False
+        print(obj_dict[f"{arg[0]}.{arg[1]}"])
 
     def do_destroy(self, args):
         """ Deletes an instance based on the class name and id\
@@ -55,14 +63,22 @@ class HBNBCommand(cmd.Cmd):
         arg = args.split()
         if len(arg) <= 0:
             print("** class name missing **")
-            return
-        elif arg < 2:
+            return False
+        elif len(arg) < 2:
             print("** instance id missing **")
-            return
+            return False
 
         elif arg[0] != "BaseModel":
             print("** class doesn't exist **")
-            return
+            return False
+        storage.reload()
+        obj_dict = storage.all()
+        key = f"{arg[0]}.{arg[1]}"
+        if key not in obj_dict:
+            print("** no instance found **")
+            return False
+        del obj_dict[key]
+        storage.save()
 
     def do_all(self, args):
         """rints all string representation of\
@@ -72,9 +88,11 @@ class HBNBCommand(cmd.Cmd):
         if len(arg) > 0:
             if arg[0] != "BaseModel":
                 print("** class doesn't exist **")
-                return
-        all = BaseModel().all()
-        print(all)
+                return False
+        storage.reload()
+        all = storage.all()
+        for string in all:
+            print(all[string])
 
     def do_update(self, args):
         """Updates an instance based on the\
@@ -83,14 +101,28 @@ class HBNBCommand(cmd.Cmd):
         
         if len(arg) <= 0:
             print("** class name missing **")
-            return
-        elif arg < 2:
-            print("** instance id missing **")
-            return
-
+            return False
         elif arg[0] != "BaseModel":
             print("** class doesn't exist **")
-            return
+            return False
+        elif len(arg) < 2:
+            print("** instance id missing **")
+            return False
+        elif len(arg) < 3:
+            print("** attribute name missing **")
+            return False
+        elif len(arg) < 4:
+            print("** value missing **")
+            return False
+        key = f"{arg[0]}.{arg[1]}"
+        storage.reload()
+        obj_dict = storage.all()
+        if key not in obj_dict:
+            print("** no instance found **")
+            return False
+        obj = obj_dict[key]
+        setattr(obj, arg[2], arg[3])
+        storage.save()
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
