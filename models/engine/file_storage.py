@@ -1,6 +1,12 @@
 #!/usr/bin/python3
 import json
 from models.base_model import BaseModel
+from models.user import User
+from models.city import City
+from models.state import State
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 
 
 class FileStorage:
@@ -18,7 +24,6 @@ class FileStorage:
     def save(self):
         serilized_dict = {}
         try:
-           # new_dict = self.__objects
             for key in self.__objects.keys():
                 serilized_dict[key] = self.__objects[key].to_dict()
             with open(self.__file_path, "w") as f:
@@ -27,7 +32,8 @@ class FileStorage:
             pass
 
     def reload(self):
-        classes = {"BaseModel": BaseModel}
+        classes = {"BaseModel": BaseModel, "User" : User, "city": City,
+                   "Place": Place, "State": State, "Amenity": Amenity}
         try:
             with open(self.__file_path, "r") as f:
                 deserilized_dict = json.load(f)
