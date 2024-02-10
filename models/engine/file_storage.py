@@ -32,18 +32,17 @@ class FileStorage:
             pass
 
     def reload(self):
-        classes = {"BaseModel": BaseModel(), "User": User(), "City": City(),
-                   "Place": Place(), "State": State(), "Amenity": Amenity(),
-                   "Review": Review()}
+        classes = {"BaseModel": BaseModel, "User": User, "City": City,
+                   "Place": Place, "State": State, "Amenity": Amenity,
+                   "Review": Review}
         try:
             with open(self.__file_path, "r") as f:
                 deserilized_dict = json.load(f)
                 for value in deserilized_dict.values():
-                    class_dict = value["__class__"]
-                    del value["__class__"]
-                    # Base = classes[value["__class__"]]
-                    # new_dict = object_dict(**value)
-                    self.new(eval(class_dict)(**value))
+                    Base = value["__class__"]
+                    Base = classes[value["__class__"]]
+                    new_base = Base(**value)
+                    self.new(new_base)
 
         except FileNotFoundError:
             return
