@@ -10,25 +10,25 @@ import sys
 class Review_id(unittest.TestCase):
     """test the id of Review"""
     def setUp(self):
-        self.base1 = Review()
-        self.base2 = Review()
+        self.review1 = Review()
+        self.review2 = Review()
 
     def test_is_basemodule(self):
         self.assertIsInstance(self.base1, Review)
 
     def test_unique_id(self):
-        self.assertNotEqual(self.base1.id, self.base2.id)
+        self.assertNotEqual(self.base1.id, self.review2.id)
 
     def test_str_id(self):
         self.assertIsInstance(self.base1.id, str)
-        self.assertIsInstance(self.base2.id, str)
+        self.assertIsInstance(self.review2.id, str)
 
 
 class Review_to_dict(unittest.TestCase):
     """test the dict of Review"""
     def setUp(self):
         self.base1 = Review()
-        self.base2 = Review()
+        self.review2 = Review()
 
     def test_to_dict(self):
         self.assertIsInstance(self.base1.to_dict(), dict)
@@ -50,7 +50,7 @@ class Review_datetime(unittest.TestCase):
     """test the datetime of Review"""
     def setUp(self):
         self.base1 = Review()
-        self.base2 = Review()
+        self.review2 = Review()
 
     def test_if_obj(self):
         self.assertIsInstance(self.base1.created_at, datetime.datetime)
@@ -66,7 +66,7 @@ class Review_save(unittest.TestCase):
     """test the save of Review"""
     def setUp(self):
         self.base1 = Review()
-        self.base2 = Review()
+        self.review2 = Review()
 
     def test_save(self):
         first_update = self.base1.updated_at
@@ -95,7 +95,7 @@ class Review_str(unittest.TestCase):
 
     def setUp(self):
         self.base1 = Review()
-        self.base2 = Review
+        self.review2 = Review
 
     def test_print(self):
         capture = Review_str.capture_stdout(self.base1)
@@ -106,7 +106,7 @@ class Review_str(unittest.TestCase):
     def test_modify_class(self):
         modify = {"id": "55", "created_at": datetime.datetime.now().isoformat(),
                   "updated_at": datetime.datetime.now().isoformat()}
-        new_base = self.base2(**modify)
+        new_base = self.review2(**modify)
         capture = Review_str.capture_stdout(new_base)
         except_output = f"[{new_base.__class__.__name__}] ({new_base.id}) {new_base.__dict__}\n"
         self.assertEqual(except_output,
