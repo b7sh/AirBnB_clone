@@ -110,7 +110,7 @@ class HBNBCommand(cmd.Cmd):
                     if value.__class__.__name__ == arg[0]:
                         l.append(str(value))
                         print(l)
-        
+
         else:
             k = []
             j = []
@@ -125,29 +125,45 @@ class HBNBCommand(cmd.Cmd):
             class name and id by adding or updating attribute """
         arg = args.split()
 
-        if len(arg) <= 0:
+        if len(arg) == 0:
             print("** class name missing **")
             return False
         elif arg[0] not in self.classes:
             print("** class doesn't exist **")
             return False
-        elif len(arg) < 2:
+        elif len(arg) <= 1:
             print("** instance id missing **")
             return False
-        elif len(arg) < 3:
+        elif len(arg) <= 2:
             print("** attribute name missing **")
             return False
-        elif len(arg) < 4:
+        elif len(arg) <= 3:
             print("** value missing **")
             return False
         key = f"{arg[0]}.{arg[1]}"
-        storage.reload()
         obj_dict = storage.all()
         if key not in obj_dict:
             print("** no instance found **")
             return False
-        obj = obj_dict[key]
-        setattr(obj, arg[2], arg[3])
+        
+        attr_name = arg[2]
+        attr_value = arg[3]
+        obj = storage.all()[key]
+
+        if attr_name in obj.__class__.__dict__.keys():
+            attr_type = type(obj.__class__.__dict__[attr_name])
+
+            if attr_type == dict:
+                value_dict = eval(attr_value)
+                obj.__dict__[attr_name].update(value_dict)
+            else:
+                obj.__dict__[attr_name] = attr_type(attr_value)
+        else:
+            obj.__dict__[attr_name] = attr_value
+
+        storage.save()
+        # obj = obj_dict[key]
+        # setattr(obj, arg[2], arg[3])
 
 
 if __name__ == '__main__':
