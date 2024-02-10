@@ -10,13 +10,13 @@ from models.review import Review
 
 
 class FileStorage:
-    
+    """store information to json file"""
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
         return self.__objects
-    
+
     def new(self, obj):
         self.__objects[
             f"{obj.__class__.__name__}.{obj.id}"] = obj
@@ -32,13 +32,14 @@ class FileStorage:
             pass
 
     def reload(self):
-        classes = {"BaseModel": BaseModel, "User" : User, "city": City,
-                   "Place": Place, "State": State, "Amenity": Amenity}
+        classes = {"BaseModel": BaseModel(), "User": User(), "City": City(),
+                   "Place": Place(), "State": State(), "Amenity": Amenity(),
+                   "Review": Review()}
         try:
             with open(self.__file_path, "r") as f:
                 deserilized_dict = json.load(f)
             for key, value in deserilized_dict.items():
-                Base = value["__class__"] #base = "BaseMdel"
+                Base = value["__class__"]
                 Base = classes[value["__class__"]]
                 new_base = Base(**value)
                 self.new(new_base)

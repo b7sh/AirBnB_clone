@@ -9,6 +9,7 @@ class BaseModel:
     """this basemodel class for airbnb"""
     def __init__(self, *args, **kwargs):
         """define attributes
+
         Attributes:
         id (str) : the unique number for user
         create_at (str) : the thime create at
