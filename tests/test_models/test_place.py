@@ -23,6 +23,19 @@ class Place_id(unittest.TestCase):
         self.assertIsInstance(self.place1.id, str)
         self.assertIsInstance(self.place2.id, str)
 
+    def test_city_attr(self):
+        self.assertIsInstance(self.place1.name, str)
+        self.assertIsInstance(self.place1.amenity_ids, list)
+        self.assertIsInstance(self.place1.city_id, str)
+        self.assertIsInstance(self.place1.latitude, float)
+        self.assertIsInstance(self.place1.max_guest, int)
+        self.assertIsInstance(self.place1.number_bathrooms, int)
+        self.assertIsInstance(self.place1.number_rooms, int)
+        self.assertIsInstance(self.place1.price_by_night, int)
+        self.assertIsInstance(self.place1.user_id, str)
+        self.assertIsInstance(self.place1.description, str)
+        self.assertIsInstance(self.place1.longitude, float)
+
 
 class Place_to_dict(unittest.TestCase):
     """test the dict of Place"""

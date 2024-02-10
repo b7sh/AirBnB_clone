@@ -23,6 +23,9 @@ class Amenity_id(unittest.TestCase):
         self.assertIsInstance(self.amenity1.id, str)
         self.assertIsInstance(self.amenity2.id, str)
 
+    def test_amenity_attr(self):
+        self.assertIsInstance(self.amenity1.name, str)
+
 
 class Amenity_to_dict(unittest.TestCase):
     """test the dict of Amenity"""

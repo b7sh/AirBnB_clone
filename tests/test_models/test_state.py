@@ -23,6 +23,9 @@ class State_id(unittest.TestCase):
         self.assertIsInstance(self.state1.id, str)
         self.assertIsInstance(self.state2.id, str)
 
+    def test_state_attr(self):
+        self.assertIsInstance(self.state1.name, str)
+
 
 class State_to_dict(unittest.TestCase):
     """test the dict of State"""

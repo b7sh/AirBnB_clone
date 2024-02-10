@@ -23,6 +23,13 @@ class User_id(unittest.TestCase):
         self.assertIsInstance(self.user1.id, str)
         self.assertIsInstance(self.user2.id, str)
 
+    
+    def test_review_atrr(self):
+        self.assertIsInstance(self.user1.email, str)
+        self.assertIsInstance(self.user1.password, str)
+        self.assertIsInstance(self.user1.first_name, str)
+        self.assertIsInstance(self.user1.last_name, str)
+
 
 class User_to_dict(unittest.TestCase):
     """test the dict of User"""

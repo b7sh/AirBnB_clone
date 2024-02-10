@@ -23,6 +23,9 @@ class City_id(unittest.TestCase):
         self.assertIsInstance(self.city1.id, str)
         self.assertIsInstance(self.city2.id, str)
 
+    def test_city_attr(self):
+        self.assertIsInstance(self.city1.state_id, str)
+        self.assertIsInstance(self.city1.name, str)
 
 class City_to_dict(unittest.TestCase):
     """test the dict of City"""
