@@ -22,14 +22,15 @@ class FileStorage:
             f"{obj.__class__.__name__}.{obj.id}"] = obj
 
     def save(self):
-        serilized_dict = {}
-        try:
-            for key in self.__objects.keys():
-                serilized_dict[key] = self.__objects[key].to_dict()
-            with open(self.__file_path, "w") as f:
-                json.dump(serilized_dict, f)
-        except FileNotFoundError:
-            pass
+        serilized_dict = self.__objects
+        # try:
+        # for key in self.__objects.keys():
+        for key in serilized_dict.keys():
+            serilized_dict[key] = self.__objects[key].to_dict()
+        with open(self.__file_path, "w") as f:
+            json.dump(serilized_dict, f)
+        # except FileNotFoundError:
+        #     pass
 
     def reload(self):
         classes = {"BaseModel": BaseModel, "User": User, "City": City,
