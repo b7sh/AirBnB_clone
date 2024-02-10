@@ -32,9 +32,9 @@ class FileStorage:
             pass
 
     def reload(self):
-        classes = {"BaseModel": BaseModel(), "User": User(), "City": City(),
-                   "Place": Place(), "State": State(), "Amenity": Amenity(),
-                   "Review": Review()}
+        classes = {"BaseModel": BaseModel, "User": User, "City": City,
+                   "Place": Place, "State": State, "Amenity": Amenity,
+                   "Review": Review}
         try:
             with open(self.__file_path, "r") as f:
                 deserilized_dict = json.load(f)
