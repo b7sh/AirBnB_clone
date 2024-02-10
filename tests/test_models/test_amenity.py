@@ -1,20 +1,20 @@
 #!/usr/bin/python3
 from time import sleep
-from models.base_model import BaseModel
+from models.amenity import Amenity
 import unittest
 import datetime
 import io
 import sys
 
 
-class BaseModel_id(unittest.TestCase):
-    """test the id of basemodel"""
+class Amenity_id(unittest.TestCase):
+    """test the id of Amenity"""
     def setUp(self):
-        self.base1 = BaseModel()
-        self.base2 = BaseModel()
+        self.base1 = Amenity()
+        self.base2 = Amenity()
 
     def test_is_basemodule(self):
-        self.assertIsInstance(self.base1, BaseModel)
+        self.assertIsInstance(self.base1, Amenity)
 
     def test_unique_id(self):
         self.assertNotEqual(self.base1.id, self.base2.id)
@@ -24,11 +24,11 @@ class BaseModel_id(unittest.TestCase):
         self.assertIsInstance(self.base2.id, str)
 
 
-class BaseModel_to_dict(unittest.TestCase):
-    """test the dict of basemodel"""
+class Amenity_to_dict(unittest.TestCase):
+    """test the dict of Amenity"""
     def setUp(self):
-        self.base1 = BaseModel()
-        self.base2 = BaseModel()
+        self.base1 = Amenity()
+        self.base2 = Amenity()
 
     def test_to_dict(self):
         self.assertIsInstance(self.base1.to_dict(), dict)
@@ -46,11 +46,11 @@ class BaseModel_to_dict(unittest.TestCase):
         self.assertIn("my_number", self.base1.to_dict())
 
 
-class BaseModel_datetime(unittest.TestCase):
-    """test the datetime of basemodel"""
+class Amenity_datetime(unittest.TestCase):
+    """test the datetime of Amenity"""
     def setUp(self):
-        self.base1 = BaseModel()
-        self.base2 = BaseModel()
+        self.base1 = Amenity()
+        self.base2 = Amenity()
 
     def test_if_obj(self):
         self.assertIsInstance(self.base1.created_at, datetime.datetime)
@@ -62,11 +62,11 @@ class BaseModel_datetime(unittest.TestCase):
         self.assertIsInstance(dictionary["created_at"], str)
 
 
-class BaseModel_save(unittest.TestCase):
-    """test the save of basemodel"""
+class Amenity_save(unittest.TestCase):
+    """test the save of Amenity"""
     def setUp(self):
-        self.base1 = BaseModel()
-        self.base2 = BaseModel()
+        self.base1 = Amenity()
+        self.base2 = Amenity()
 
     def test_save(self):
         first_update = self.base1.updated_at
@@ -75,8 +75,8 @@ class BaseModel_save(unittest.TestCase):
         self.assertNotEqual(first_update, self.base1.updated_at)
 
 
-class BaseModel_str(unittest.TestCase):
-    """test the str of basemodel"""
+class Amenity_str(unittest.TestCase):
+    """test the str of Amenity"""
     @staticmethod
     def capture_stdout(clas):
         """Captures and returns text printed to stdout.
@@ -94,11 +94,11 @@ class BaseModel_str(unittest.TestCase):
         return capture
 
     def setUp(self):
-        self.base1 = BaseModel()
-        self.base2 = BaseModel
+        self.base1 = Amenity()
+        self.base2 = Amenity
 
     def test_print(self):
-        capture = BaseModel_str.capture_stdout(self.base1)
+        capture = Amenity_str.capture_stdout(self.base1)
         except_output = f"[{self.base1.__class__.__name__}] ({self.base1.id}) {self.base1.__dict__}\n"
         self.assertEqual(except_output,
                         capture.getvalue())
@@ -107,7 +107,7 @@ class BaseModel_str(unittest.TestCase):
         modify = {"id": "55", "created_at": datetime.datetime.now().isoformat(),
                   "updated_at": datetime.datetime.now().isoformat()}
         new_base = self.base2(**modify)
-        capture = BaseModel_str.capture_stdout(new_base)
+        capture = Amenity_str.capture_stdout(new_base)
         except_output = f"[{new_base.__class__.__name__}] ({new_base.id}) {new_base.__dict__}\n"
         self.assertEqual(except_output,
                         capture.getvalue())
