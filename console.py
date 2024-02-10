@@ -35,10 +35,10 @@ class HBNBCommand(cmd.Cmd):
         arg = args.split()
         if len(arg) <= 0:
             print("** class name missing **")
-            return
+            return False
         elif arg[0] not in self.classes:
             print("** class doesn't exist **")
-            return
+            return False
         else:
             Base = self.classes[arg[0]]
             storage.new(Base)
@@ -67,7 +67,7 @@ class HBNBCommand(cmd.Cmd):
         if key not in obj_dict:
             print("** no instance found **")
             return False
-        print(obj_dict[f"{arg[0]}.{arg[1]}"])
+        print(obj_dict[key])
 
     def do_destroy(self, args):
         """ Deletes an instance based on the class name and id\
@@ -98,15 +98,27 @@ class HBNBCommand(cmd.Cmd):
             all instances based or not on the class name.
         """
         arg = args.split()
+        storage.reload()
+        all = storage.all()
         if len(arg) > 0:
             if arg[0] not in self.classes:
                 print("** class doesn't exist **")
                 return False
-        all_list = []
-        all = storage.all()
-        for i in all:
-            all_list.append(all[i])
-        print(all_list)
+            else:
+                l = []
+                for value in all.values():
+                    if value.__class__.__name__ == arg[0]:
+                        l.append(str(value))
+                        print(l)
+        
+        else:
+            k = []
+            j = []
+            for key in all.keys():
+                k.append(key)
+            for key in k:
+                j.append(str(all[key]))
+            print(j)
 
     def do_update(self, args):
         """Updates an instance based on the\
