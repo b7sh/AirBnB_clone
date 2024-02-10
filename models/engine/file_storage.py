@@ -40,10 +40,9 @@ class FileStorage:
                 deserilized_dict = json.load(f)
                 for value in deserilized_dict.values():
                     Base = value["__class__"]
-                    del value["__class__"]
-                    # Base = classes[value["__class__"]]
-                    # new_base = Base(**value)
-                    self.new(eval(Base)(**value))
+                    Base = classes[value["__class__"]]
+                    new_base = Base(**value)
+                    self.new(new_base)
 
         except FileNotFoundError:
             return
