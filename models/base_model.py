@@ -7,7 +7,7 @@ import models
 
 class BaseModel:
     """this basemodel class for airbnb"""
-    def __init__(self, *args,**kwargs):
+    def __init__(self, *args, **kwargs):
         """define attributes
         Attributes:
         id (str) : the unique number for user
@@ -22,7 +22,7 @@ class BaseModel:
         if len(kwargs) != 0:
             for k, v in kwargs.items():
                 if k == "created_at" or k == "updated_at":
-                    self.__dict__[k] = datetime.datetime.strptime(v,tformat)
+                    self.__dict__[k] = datetime.datetime.strptime(v, tformat)
                 else:
                     self.__dict__[k] = v
         else:

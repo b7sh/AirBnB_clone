@@ -1,13 +1,23 @@
 #!/usr/bin/python3
+"""define console module"""
 import cmd
 from models.base_model import BaseModel
 from models.user import User
 from models import storage
+from models.user import User
+from models.city import City
+from models.state import State
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
+
 
 class HBNBCommand(cmd.Cmd):
     """the airbnb interrpreter"""
     prompt = "(hbnb) "
-    classes = {"BaseModel": BaseModel(), "User" : User()}
+    classes = {"BaseModel": BaseModel, "User": User, "city": City,
+               "Place": Place, "State": State, "Amenity": Amenity}
+
     def do_quit(self, args):
         """Quit command to exit the program"""
         return True
@@ -99,7 +109,7 @@ class HBNBCommand(cmd.Cmd):
         """Updates an instance based on the\
             class name and id by adding or updating attribute """
         arg = args.split()
-        
+
         if len(arg) <= 0:
             print("** class name missing **")
             return False
@@ -123,6 +133,7 @@ class HBNBCommand(cmd.Cmd):
             return False
         obj = obj_dict[key]
         setattr(obj, arg[2], arg[3])
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
