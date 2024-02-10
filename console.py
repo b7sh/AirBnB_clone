@@ -15,8 +15,8 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     """the airbnb interrpreter"""
     prompt = "(hbnb) "
-    classes = {"BaseModel": BaseModel, "User": User, "city": City,
-               "Place": Place, "State": State, "Amenity": Amenity}
+    classes = {"BaseModel": BaseModel(), "User": User(), "City": City(),
+               "Place": Place(), "State": State(), "Amenity": Amenity()}
 
     def do_quit(self, args):
         """Quit command to exit the program"""
