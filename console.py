@@ -22,7 +22,9 @@ class HBNBCommand(cmd.Cmd):
         """Quit command to exit the program"""
         return True
 
-    do_EOF = do_quit
+    def do_EOF(self, args):
+        """EOF command to exit the program"""
+        return True
 
     def emptyline(self):
         pass
@@ -100,10 +102,11 @@ class HBNBCommand(cmd.Cmd):
             if arg[0] not in self.classes:
                 print("** class doesn't exist **")
                 return False
-        storage.reload()
+        all_list = []
         all = storage.all()
-        for string in all:
-            print(all[string])
+        for i in all:
+            all_list.append(all[i])
+        print(all_list)
 
     def do_update(self, args):
         """Updates an instance based on the\
