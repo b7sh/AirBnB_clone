@@ -23,8 +23,8 @@ class FileStorage:
 
     def save(self):
         serilized_dict = {}
-        try:    
-            for key in serilized_dict.keys():
+        try:
+            for key in self.__objects.keys():
                 serilized_dict[key] = self.__objects[key].to_dict()
             with open(self.__file_path, "w") as f:
                 json.dump(serilized_dict, f)
@@ -32,17 +32,18 @@ class FileStorage:
             pass
 
     def reload(self):
-        classes = {"BaseModel": BaseModel, "User": User, "City": City,
-                   "Place": Place, "State": State, "Amenity": Amenity,
-                   "Review": Review}
+        classes = {"BaseModel": BaseModel(), "User": User(), "City": City(),
+                   "Place": Place(), "State": State(), "Amenity": Amenity(),
+                   "Review": Review()}
         try:
             with open(self.__file_path, "r") as f:
                 deserilized_dict = json.load(f)
-            for key, value in deserilized_dict.items():
-                Base = value["__class__"]
-                Base = classes[value["__class__"]]
-                new_base = Base(**value)
-                self.new(new_base)
+                for value in deserilized_dict.values():
+                    class_dict = value["__class__"]
+                    del value["__class__"]
+                    # Base = classes[value["__class__"]]
+                    # new_dict = object_dict(**value)
+                    self.new(eval(class_dict)(**value))
 
         except FileNotFoundError:
             return
