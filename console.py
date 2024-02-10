@@ -16,7 +16,7 @@ class HBNBCommand(cmd.Cmd):
     """the airbnb interrpreter"""
     prompt = "(hbnb) "
     classes = {"BaseModel": BaseModel(), "User": User(), "City": City(),
-               "Place": Place(), "State": State(), "Amenity": Amenity()}
+               "Place": Place(), "State": State(), "Amenity": Amenity(), "Review": Review}
 
     def do_quit(self, args):
         """Quit command to exit the program"""
