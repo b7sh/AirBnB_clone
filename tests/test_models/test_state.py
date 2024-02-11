@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from time import sleep
-from models.base_model import State
+from models.state import State
 import unittest
 import datetime
 import io

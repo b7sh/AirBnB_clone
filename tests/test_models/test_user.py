@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from time import sleep
-from models.base_model import User
+from models.user import User
 import unittest
 import datetime
 import io

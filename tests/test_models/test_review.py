@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from time import sleep
-from models.base_model import Review
+from models.review import Review
 import unittest
 import datetime
 import io
