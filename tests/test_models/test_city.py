@@ -27,8 +27,10 @@ class City_id(unittest.TestCase):
         self.assertIsInstance(self.city1.state_id, str)
         self.assertIsInstance(self.city1.name, str)
 
+
 class City_to_dict(unittest.TestCase):
     """test the dict of City"""
+
     def setUp(self):
         self.city1 = City()
         self.city2 = City()
@@ -102,15 +104,18 @@ class City_str(unittest.TestCase):
 
     def test_print(self):
         capture = City_str.capture_stdout(self.city1)
-        except_output = f"[{self.city1.__class__.__name__}] ({self.city1.id}) {self.city1.__dict__}\n"
+        except_output = f"[{self.city1.__class__.__name__}]\
+            ({self.city1.id}) {self.city1.__dict__}\n"
         self.assertEqual(except_output,
-                        capture.getvalue())
+                         capture.getvalue())
 
     def test_modify_class(self):
-        modify = {"id": "55", "created_at": datetime.datetime.now().isoformat(),
+        modify = {"id": "55",
+                  "created_at": datetime.datetime.now().isoformat(),
                   "updated_at": datetime.datetime.now().isoformat()}
         new_base = self.city2(**modify)
         capture = City_str.capture_stdout(new_base)
-        except_output = f"[{new_base.__class__.__name__}] ({new_base.id}) {new_base.__dict__}\n"
+        except_output = f"[{new_base.__class__.__name__}]\
+            ({new_base.id}) {new_base.__dict__}\n"
         self.assertEqual(except_output,
-                        capture.getvalue())
+                         capture.getvalue())

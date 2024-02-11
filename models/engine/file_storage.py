@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""define file storage"""
 import json
 from models.base_model import BaseModel
 from models.user import User
@@ -15,13 +16,16 @@ class FileStorage:
     __objects = {}
 
     def all(self):
+        """return: dictionary of objects"""
         return self.__objects
 
     def new(self, obj):
+        """save object in dictionary"""
         self.__objects[
             f"{obj.__class__.__name__}.{obj.id}"] = obj
 
     def save(self):
+        """serilazition for json file"""
         serilized_dict = {}
         try:
             for key in self.__objects.keys():
@@ -32,6 +36,7 @@ class FileStorage:
             pass
 
     def reload(self):
+        """deserilazition for json file"""
         classes = {"BaseModel": BaseModel, "User": User, "City": City,
                    "Place": Place, "State": State, "Amenity": Amenity,
                    "Review": Review}

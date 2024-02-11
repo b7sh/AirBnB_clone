@@ -112,15 +112,18 @@ class Place_str(unittest.TestCase):
 
     def test_print(self):
         capture = Place_str.capture_stdout(self.place1)
-        except_output = f"[{self.place1.__class__.__name__}] ({self.place1.id}) {self.place1.__dict__}\n"
+        except_output = f"[{self.place1.__class__.__name__}]\
+            ({self.place1.id}) {self.place1.__dict__}\n"
         self.assertEqual(except_output,
-                        capture.getvalue())
+                         capture.getvalue())
 
     def test_modify_class(self):
-        modify = {"id": "55", "created_at": datetime.datetime.now().isoformat(),
+        modify = {"id": "55",
+                  "created_at": datetime.datetime.now().isoformat(),
                   "updated_at": datetime.datetime.now().isoformat()}
         new_base = self.place2(**modify)
         capture = Place_str.capture_stdout(new_base)
-        except_output = f"[{new_base.__class__.__name__}] ({new_base.id}) {new_base.__dict__}\n"
+        except_output = f"[{new_base.__class__.__name__}] ({new_base.id})\
+            {new_base.__dict__}\n"
         self.assertEqual(except_output,
-                        capture.getvalue())
+                         capture.getvalue())

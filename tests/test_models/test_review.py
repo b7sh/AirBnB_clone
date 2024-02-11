@@ -23,7 +23,6 @@ class Review_id(unittest.TestCase):
         self.assertIsInstance(self.review1.id, str)
         self.assertIsInstance(self.review2.id, str)
 
-    
     def test_review_atrr(self):
         self.assertIsInstance(self.review2.place_id, str)
         self.assertIsInstance(self.review2.user_id, str)
@@ -105,15 +104,18 @@ class Review_str(unittest.TestCase):
 
     def test_print(self):
         capture = Review_str.capture_stdout(self.review1)
-        except_output = f"[{self.review1.__class__.__name__}] ({self.review1.id}) {self.review1.__dict__}\n"
+        except_output = f"[{self.review1.__class__.__name__}]\
+            ({self.review1.id}) {self.review1.__dict__}\n"
         self.assertEqual(except_output,
-                        capture.getvalue())
+                         capture.getvalue())
 
     def test_modify_class(self):
-        modify = {"id": "55", "created_at": datetime.datetime.now().isoformat(),
+        modify = {"id": "55",
+                  "created_at": datetime.datetime.now().isoformat(),
                   "updated_at": datetime.datetime.now().isoformat()}
         new_base = self.review2(**modify)
         capture = Review_str.capture_stdout(new_base)
-        except_output = f"[{new_base.__class__.__name__}] ({new_base.id}) {new_base.__dict__}\n"
+        except_output = f"[{new_base.__class__.__name__}]\
+            ({new_base.id}) {new_base.__dict__}\n"
         self.assertEqual(except_output,
-                        capture.getvalue())
+                         capture.getvalue())

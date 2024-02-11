@@ -27,4 +27,5 @@ class testattribute(unittest.TestCase):
         """pass obj to new method"""
         self.storage.new(self.base)
         objects = self.storage.all()
-        self.assertIn(f"{self.base.__class__.__name__}.{self.base.id}", objects)
+        self.assertIn(f"{self.base.__class__.__name__}\
+            .{self.base.id}", objects)

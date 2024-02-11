@@ -16,7 +16,8 @@ class HBNBCommand(cmd.Cmd):
     """the airbnb interrpreter"""
     prompt = "(hbnb) "
     classes = {"BaseModel": BaseModel(), "User": User(), "City": City(),
-               "Place": Place(), "State": State(), "Amenity": Amenity(), "Review": Review()}
+               "Place": Place(), "State": State(), "Amenity": Amenity(),
+               "Review": Review()}
 
     def do_quit(self, args):
         """Quit command to exit the program"""
@@ -105,11 +106,11 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return False
             else:
-                l = []
+                object_list = []
                 for value in all.values():
                     if value.__class__.__name__ == arg[0]:
-                        l.append(str(value))
-                        print(l)
+                        object_list.append(str(value))
+                        print(object_list)
 
         else:
             k = []
@@ -145,7 +146,7 @@ class HBNBCommand(cmd.Cmd):
         if key not in obj_dict:
             print("** no instance found **")
             return False
-        
+
         attr_name = arg[2]
         attr_value = arg[3]
         obj = storage.all()[key]
