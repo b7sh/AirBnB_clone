@@ -199,7 +199,7 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, line):
         pattern = re.search(r"(\w+)\.(\w+)\(\)", line)
-        show_pattern = re.search(r"(\w+)\.(\w+)+\((\w{8}-\w{4}-\w{4}-\w{4}-\w{12})\)", line)
+        show_pattern = re.search(r"(\w+)\.(\w+)+\((\w+-\w+-\w+-\w+-\w+)\)", line)
         if pattern:
             class_ = pattern.group(1)
             func = pattern.group(2)
