@@ -185,7 +185,7 @@ class HBNBCommand(cmd.Cmd):
             return command
         else:
             return line
-                
+
     def do_count(self, args):
         """the number of things"""
         count = 0
@@ -207,6 +207,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             return line
 
-    
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
