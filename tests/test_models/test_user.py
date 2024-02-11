@@ -105,8 +105,8 @@ class User_str(unittest.TestCase):
 
     def test_print(self):
         capture = User_str.capture_stdout(self.user1)
-        except_output = f"[{self.user1.__class__.__name__}]\
-            ({self.user1.id}) {self.user1.__dict__}\n"
+        first = f"[{self.user1.__class__.__name__}] "
+        except_output = first + f"({self.user1.id}) {self.user1.__dict__}\n"
         self.assertEqual(except_output,
                          capture.getvalue())
 
@@ -116,7 +116,7 @@ class User_str(unittest.TestCase):
                   "updated_at": datetime.datetime.now().isoformat()}
         new_base = self.user2(**modify)
         capture = User_str.capture_stdout(new_base)
-        except_output = f"[{new_base.__class__.__name__}]\
-            ({new_base.id}) {new_base.__dict__}\n"
+        first = f"[{new_base.__class__.__name__}] "
+        except_output = first + f"({new_base.id}) {new_base.__dict__}\n"
         self.assertEqual(except_output,
                          capture.getvalue())

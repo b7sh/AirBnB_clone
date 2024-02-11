@@ -102,8 +102,8 @@ class Amenity_str(unittest.TestCase):
 
     def test_print(self):
         capture = Amenity_str.capture_stdout(self.amenity1)
-        except_output = f"[{self.amenity1.__class__.__name__}] \
-            ({self.amenity1.id}) {self.amenity1.__dict__}\n"
+        first = f"[{self.amenity1.__class__.__name__}] ({self.amenity1.id})"
+        except_output = first + f" {self.amenity1.__dict__}\n"
         self.assertEqual(except_output,
                          capture.getvalue())
 
@@ -113,7 +113,7 @@ class Amenity_str(unittest.TestCase):
                   "updated_at": datetime.datetime.now().isoformat()}
         new_base = self.amenity2(**modify)
         capture = Amenity_str.capture_stdout(new_base)
-        except_output = f"[{new_base.__class__.__name__}]\
-            ({new_base.id}) {new_base.__dict__}\n"
+        first = f"[{new_base.__class__.__name__}] "
+        except_output = first + f"({new_base.id}) {new_base.__dict__}\n"
         self.assertEqual(except_output,
                          capture.getvalue())
