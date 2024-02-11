@@ -198,11 +198,18 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def precmd(self, line):
-        pattern = re.search(r"(\w+)\.(\w+)\((\w)\)", line)
+        pattern = re.search(r"(\w+)\.(\w+)\(\)", line)
+        show_pattern = re.search(r"(\w+)\.(\w+)+\((\w{8}-\w{4}-\w{4}-\w{4}-\w{12})\)", line)
         if pattern:
             class_ = pattern.group(1)
             func = pattern.group(2)
             command = func + " " + class_
+            return command
+        elif show_pattern:
+            class_ = show_pattern.group(1)
+            func = show_pattern.group(2)
+            argument = show_pattern.group(3)
+            command = func + " " + class_ + " " + argument
             return command
         else:
             return line
