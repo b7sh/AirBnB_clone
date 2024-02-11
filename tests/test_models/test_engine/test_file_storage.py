@@ -44,6 +44,7 @@ class testmethods(unittest.TestCase):
         self.assertIn(expected, objects)
 
     def test_new_with_str(self):
+        """check the id attribute"""
         with self.assertRaisesRegex(AttributeError,
                                     "object has no attribute 'id'"):
             self.storage.new("obj")
