@@ -163,8 +163,7 @@ class HBNBCommand(cmd.Cmd):
             obj.__dict__[attr_name] = attr_value
 
         storage.save()
-        # obj = obj_dict[key]
-        # setattr(obj, arg[2], arg[3])
+
 
 
 if __name__ == '__main__':
