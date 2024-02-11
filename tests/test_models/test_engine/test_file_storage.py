@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""test for file storage"""
 import unittest
 from models.engine.file_storage import FileStorage
 from models.base_model import BaseModel
@@ -27,5 +28,5 @@ class testattribute(unittest.TestCase):
         """pass obj to new method"""
         self.storage.new(self.base)
         objects = self.storage.all()
-        self.assertIn(f"{self.base.__class__.__name__}\
-            .{self.base.id}", objects)
+        expected = f"{self.base.__class__.__name__}.{self.base.id}"
+        self.assertIn(expected, objects)

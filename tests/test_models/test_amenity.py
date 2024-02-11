@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""test for amenity """
 from time import sleep
 from models.amenity import Amenity
 import unittest
