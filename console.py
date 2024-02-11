@@ -177,7 +177,7 @@ class HBNBCommand(cmd.Cmd):
         print(count)
 
     def precmd(self, line):
-        pattern = re.search(r"(\w+)\.(\w+)\(\)", line)
+        pattern = re.search(r"(\w+)\.(\w+)\((\w)\)", line)
         if pattern:
             class_ = pattern.group(1)
             func = pattern.group(2)
