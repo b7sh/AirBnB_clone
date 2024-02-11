@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """define console module"""
+import re
 import cmd
 from models.base_model import BaseModel
 from models.user import User
@@ -164,6 +165,27 @@ class HBNBCommand(cmd.Cmd):
 
         storage.save()
 
+    def do_count(self, args):
+        """the number of things"""
+        count = 0
+        arg = args.split()
+        if arg[0] in self.classes.keys():
+            objects = storage.all()
+            for value in objects.values():
+                if value.__class__.__name__ == arg[0]:
+                    count += 1
+        print(count)
 
+    def precmd(self, line):
+        pattern = re.search(r"(\w+)\.(\w+)\(\)", line)
+        if pattern:
+            class_ = pattern.group(1)
+            func = pattern.group(2)
+            command = func + " " + class_
+            return command
+        else:
+            return line
+                
+    
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
