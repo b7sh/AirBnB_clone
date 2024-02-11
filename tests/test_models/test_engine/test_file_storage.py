@@ -47,4 +47,3 @@ class testmethods(unittest.TestCase):
         with self.assertRaisesRegex(AttributeError,
                                     "object has no attribute 'id'"):
             self.storage.new("obj")
-
