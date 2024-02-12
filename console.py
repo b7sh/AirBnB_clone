@@ -143,7 +143,6 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return False
         key = f"{arg[0]}.{arg[1]}"
-        print(key)
         obj_dict = storage.all()
         if key not in obj_dict:
             print("** no instance found **")
