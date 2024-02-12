@@ -143,6 +143,7 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return False
         key = f"{arg[0]}.{arg[1]}"
+        print(key)
         obj_dict = storage.all()
         if key not in obj_dict:
             print("** no instance found **")
@@ -178,29 +179,8 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, line):
         pattern = re.search(r"(\w+)\.(\w+)\(\)", line)
-        if pattern:
-            class_ = pattern.group(1)
-            func = pattern.group(2)
-            command = func + " " + class_
-            return command
-        else:
-            return line
-
-    def do_count(self, args):
-        """the number of things"""
-        count = 0
-        arg = args.split()
-        if arg[0] in self.classes.keys():
-            objects = storage.all()
-            for value in objects.values():
-                if value.__class__.__name__ == arg[0]:
-                    count += 1
-        print(count)
-
-    def precmd(self, line):
-        pattern = re.search(r"(\w+)\.(\w+)\(\)", line)
         show_pattern = re.search(r"(\w+)\.(\w+)\((.+)\)", line)
-        update_pattern = re.search(r"(\w+)\.(\w+)\((.+), (.+), (.+)\)", line)
+        update_pattern = re.search(r'(\w+)\.(\w+)\("(.+)", "(.+)", (.+)\)', line)
         if pattern:
             class_ = pattern.group(1)
             func = pattern.group(2)
@@ -217,9 +197,9 @@ class HBNBCommand(cmd.Cmd):
             func = update_pattern.group(2)
             argument = update_pattern.group(3)
             var = update_pattern.group(4)
-            value = update_pattern.group(5)
+            val = update_pattern.group(5)
             command1 = func + " " + class_
-            command2 =  argument + " " + var + " " + value
+            command2 =  argument + " " + var + " " + val
             command = command1 + " " + command2
             return command
         else:
