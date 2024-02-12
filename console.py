@@ -200,6 +200,7 @@ class HBNBCommand(cmd.Cmd):
     def precmd(self, line):
         pattern = re.search(r"(\w+)\.(\w+)\(\)", line)
         show_pattern = re.search(r"(\w+)\.(\w+)\((.+)\)", line)
+        update_pattern = re.search(r"(\w+)\.(\w+)\((.+), (.+), (.+)\)", line)
         if pattern:
             class_ = pattern.group(1)
             func = pattern.group(2)
@@ -210,6 +211,16 @@ class HBNBCommand(cmd.Cmd):
             func = show_pattern.group(2)
             argument = show_pattern.group(3)
             command = func + " " + class_ + " " + argument
+            return command
+        elif update_pattern:
+            class_ = update_pattern.group(1)
+            func = update_pattern.group(2)
+            argument = update_pattern.group(3)
+            var = update_pattern.group(4)
+            value = update_pattern.group(5)
+            command1 = func + " " + class_
+            command2 =  argument + " " + var + " " + value
+            command = command1 + " " + command2
             return command
         else:
             return line
